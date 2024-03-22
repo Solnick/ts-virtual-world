@@ -1,7 +1,8 @@
 import './board.css'
-import { appContainer } from '../constants';
-import { Renderable } from '../types/renderable.interface';
+import { appContainer } from '../../shared/constants';
+import { Renderable } from '../../shared/types/renderable.interface';
 import { Tile } from '../Tile';
+import { Fox } from '../Fox';
 
 export class Board implements Renderable {
   private readonly tiles: Array<Array<Tile>> = [];
@@ -34,7 +35,12 @@ export class Board implements Renderable {
       this.tiles[x][y] = tile;
       this.rows[x].append(tile.container);
     })
+    this.initializeOrganisms()
+    this.render();
+  }
 
+  private initializeOrganisms() {
+    this.tiles[0][0].addOrganism(new Fox());
   }
 
   render() {

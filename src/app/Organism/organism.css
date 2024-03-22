@@ -1,5 +1,5 @@
-.tile {
+.organism {
     width: var(--tile-size);
     height: var(--tile-size);
-    border: solid 1px black;
+    object-fit: cover;
 }
