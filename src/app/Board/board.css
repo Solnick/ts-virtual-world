@@ -1,0 +1,7 @@
+.board {
+    background-color: beige;
+}
+
+.row {
+    display: flex;
+}
