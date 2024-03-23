@@ -2,9 +2,12 @@ import './board.css'
 import { appContainer, INITIAL_ORGANISMS_NUMBER, OrganismsClasses } from '../../shared/constants';
 import { Renderable } from '../../shared/types/renderable.interface';
 import { Tile } from '../Tile';
+import { Organism } from '../Organism';
+import { Coordinates } from '../../shared/types/coordinates';
 
 export class Board implements Renderable {
   private readonly tiles: Array<Array<Tile>> = [];
+  private readonly organismsToCoordinatesMap = new Map<Organism, Coordinates>();
   readonly container = document.createElement('div');
   readonly rows: Array<HTMLDivElement> = [];
   constructor(
@@ -12,6 +15,10 @@ export class Board implements Renderable {
     private readonly ySize: number,
   ) {
     this.initialize()
+  }
+
+  setTileOrganism(x: number, y: number, organism: Organism) {
+    // this.tiles[x][y].
   }
 
   private initializeRows() {
@@ -51,6 +58,11 @@ export class Board implements Renderable {
     }
   }
 
+  getTileOrganism(x: number, y: number) {
+    const tile = this.tiles[x][y];
+    return tile.organism;
+  }
+
   render() {
     this.forEveryTile((x, y) => {
       this.tiles[x][y].render();
@@ -68,7 +80,7 @@ export class Board implements Renderable {
   private findEmptyTile(): Tile {
     const randomX = Math.floor(Math.random() * this.xSize);
     const randomY = Math.floor(Math.random() * this.ySize);
-    const tile = this.tiles[randomX][randomY];
-    return tile.organism ? this.findEmptyTile() : tile;
+    const isOccupied = this.getTileOrganism(randomX, randomY);
+    return isOccupied ? this.findEmptyTile() : this.tiles[randomX][randomY];
   }
 }
