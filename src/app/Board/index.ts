@@ -47,7 +47,7 @@ export class Board implements Renderable {
       const emptyTile = this.findEmptyTile();
       const randomOrganismClassIndex = Math.floor(Math.random() * OrganismsClasses.length);
       const Organism = OrganismsClasses[randomOrganismClassIndex];
-      emptyTile.addOrganism(new Organism());
+      emptyTile.setOrganism(new Organism());
     }
   }
 

@@ -13,7 +13,7 @@ export class Tile implements Renderable {
     this.container.classList.add('tile');
   }
 
-  addOrganism(organism: Organism) {
+  setOrganism(organism: Organism) {
     this.organism = organism;
   }
 
