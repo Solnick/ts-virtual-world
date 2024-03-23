@@ -2,10 +2,11 @@ import { Organism } from '../Organism';
 
 export abstract class Animal extends Organism {
   constructor(
-    readonly initiative: number,
+    imageSrc: string,
+    initiative: number,
     readonly strength: number,
   ) {
-    super();
+    super(imageSrc, initiative);
   }
 
   render() {
