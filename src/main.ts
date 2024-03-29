@@ -1,5 +1,6 @@
 import './style.css'
-import { appContainer, BOARD_SIZE } from './app/constants';
+import './shared/styles/variables.css'
+import { appContainer, BOARD_SIZE } from './shared/constants';
 import { Board } from './app/Board';
 
 if(!appContainer) {

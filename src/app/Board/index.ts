@@ -1,6 +1,6 @@
 import './board.css'
-import { appContainer } from '../constants';
-import { Renderable } from '../types/renderable.interface';
+import { appContainer, INITIAL_ORGANISMS_NUMBER, OrganismsClasses } from '../../shared/constants';
+import { Renderable } from '../../shared/types/renderable.interface';
 import { Tile } from '../Tile';
 
 export class Board implements Renderable {
@@ -34,7 +34,21 @@ export class Board implements Renderable {
       this.tiles[x][y] = tile;
       this.rows[x].append(tile.container);
     })
+    this.initializeOrganisms()
+    this.render();
+  }
 
+  private initializeOrganisms() {
+    if (INITIAL_ORGANISMS_NUMBER > this.xSize * this.ySize) {
+      throw new Error('INITIAL_ORGANISMS_NUMBER is bigger than the number of tiles')
+    }
+
+    for (let i = 0; i < INITIAL_ORGANISMS_NUMBER; i++) {
+      const emptyTile = this.findEmptyTile();
+      const randomOrganismClassIndex = Math.floor(Math.random() * OrganismsClasses.length);
+      const Organism = OrganismsClasses[randomOrganismClassIndex];
+      emptyTile.setOrganism(new Organism());
+    }
   }
 
   render() {
@@ -49,5 +63,12 @@ export class Board implements Renderable {
         action(x, y)
       }
     }
+  }
+
+  private findEmptyTile(): Tile {
+    const randomX = Math.floor(Math.random() * this.xSize);
+    const randomY = Math.floor(Math.random() * this.ySize);
+    const tile = this.tiles[randomX][randomY];
+    return tile.organism ? this.findEmptyTile() : tile;
   }
 }
